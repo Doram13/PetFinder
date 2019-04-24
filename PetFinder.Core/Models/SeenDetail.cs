@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetFinder.Core.Models
 {
-    public class SeenDetails
+    public class SeenDetail
     {
+        public int Id { get; set; }
         public string Location { get; set; }
         public DateTime SeenTime { get; set; }
 

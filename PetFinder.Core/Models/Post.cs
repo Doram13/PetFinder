@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetFinder.Core.Models
 {
@@ -11,8 +8,8 @@ namespace PetFinder.Core.Models
         public PostTypes PostType { get; set; }
         public DateTime PostDate { get; set; }
         public bool IsActive { get; set; }
-        public int UserId { get; set; }
-        public Pet PostedPet { get; set; }
+        public virtual ApplicationUser User { get; set; }
+        public virtual Pet PostedPet { get; set; }
         public string Description { get; set; }
     }
 }
