@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PetFinder.Core.Models
 {
-    public class User
+    public class ApplicationUser
     {
         public int Id { get; set; }
         public string UserName { get; set; }
