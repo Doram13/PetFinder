@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace PetFinder.Core.Models
 {
@@ -8,7 +9,7 @@ namespace PetFinder.Core.Models
         public PostTypes PostType { get; set; }
         public DateTime PostDate { get; set; }
         public bool IsActive { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual IdentityUser User { get; set; }
         public virtual Pet PostedPet { get; set; }
         public string Description { get; set; }
     }
