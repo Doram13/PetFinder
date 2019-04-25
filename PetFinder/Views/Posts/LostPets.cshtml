@@ -1,18 +1,17 @@
 ﻿@model IEnumerable<PetFinder.Core.Models.Post>
 
 @{
-    ViewData["Title"] = "LostPets";
+    ViewData["Title"] = "Lost pets";
 }
 
-<h1>LostPets</h1>
+<h1>Lost pets</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-
             <th>
                 @Html.DisplayNameFor(model => model.PostDate)
             </th>
