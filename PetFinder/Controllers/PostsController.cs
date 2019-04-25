@@ -48,7 +48,7 @@ namespace PetFinder.Controllers
 
             return View(post);
         }
-      
+
         // POST: Posts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -87,6 +87,15 @@ namespace PetFinder.Controllers
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.Id == id);
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult CreatePost()
+        {
+            return View();
         }
     }
 }
