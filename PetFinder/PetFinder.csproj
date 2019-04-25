@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PetFinder.Core\PetFinder.Core.csproj" />
+    <ProjectReference Include="..\PetFinder.Service\PetFinder.Service.csproj" />
   </ItemGroup>
 
 </Project>

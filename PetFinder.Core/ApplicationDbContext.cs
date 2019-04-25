@@ -19,8 +19,5 @@ namespace PetFinder.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<SeenDetail> SeenDetails { get; set; }
-
-        
-
     }
 }

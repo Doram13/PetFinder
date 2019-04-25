@@ -9,9 +9,11 @@ namespace PetFinder.Core
 {
     public interface IPost
     {
-        Post GetPostById(int id);
+        Task<Post> GetPostById(int id);
         IEnumerable<Post> GetAllPosts();
         IEnumerable<Post> GetAllActivePosts();
+        Task<IEnumerable<Post>> GetAllSeenPetPosts();
+        Task<IEnumerable<Post>> GetAllLostPetPosts();
         string GetPostTitle(int id);
         PostTypes GetPostType(int id);
         DateTime GetPostDateTime(int id);
@@ -20,7 +22,7 @@ namespace PetFinder.Core
         Pet GetPostPet(int postId);
         string GetDescription(int id);
 
-        Task CreatePost(Post post);
+        Task SavePostAsync(Post post);
         Task DeletePost(int id);
         Task UpdatePostDescription(int postId, string newDescription);
         Task UpdatePostTitle(int postId, string newTitle);

@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using PetFinder.Core;
 using PetFinder.Core.Models;
-using PetFinder.Data;
 
 namespace PetFinder.Controllers
 {
     public class PostsController : Controller
     {
-        private readonly ApplicationDbContext _context;
 
-        public PostsController(ApplicationDbContext context)
+        private readonly IPost _postService;
+
+        public PostsController(IPost postservice)
         {
-            _context = context;
+            _postService = postservice;
         }
 
 
         public async Task<IActionResult> SeenPets()
         {
-            return View(await _context.Posts.Where(p => p.PostType == PostTypes.SEEN).ToListAsync());
+            return View(await _postService.GetAllSeenPetPosts());
         }
 
         public async Task<IActionResult> LostPets()
         {
-            return View(await _context.Posts.Where(p => p.PostType == PostTypes.LOST).ToListAsync());
+            return View(await _postService.GetAllLostPetPosts());
         }
 
 
@@ -39,8 +35,7 @@ namespace PetFinder.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Posts
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var post = await _postService.GetPostById((int)id);
             if (post == null)
             {
                 return NotFound();
@@ -84,10 +79,11 @@ namespace PetFinder.Controllers
         //    return View(post);
         //}
 
-        private bool PostExists(int id)
-        {
-            return _context.Posts.Any(e => e.Id == id);
-        }
+        //private bool PostExists(int id)
+        //{
+        //    return _context.Posts.Any(e => e.Id == id);
+        //}
+
         public IActionResult Index()
         {
             return View();
@@ -96,6 +92,13 @@ namespace PetFinder.Controllers
         public IActionResult CreatePost()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveNewPost(Post post)
+        {
+            await _postService.SavePostAsync(post);
+            return RedirectToAction(nameof(SeenPets));
         }
     }
 }
