@@ -32,7 +32,7 @@ namespace PetFinder.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SeenPets()
+    /*    public async Task<IActionResult> SeenPets()
         {
             return View(await _context.Posts.Where(p => p.PostType == PostTypes.SEEN).ToListAsync());
         }
@@ -41,7 +41,7 @@ namespace PetFinder.Controllers
         {
             return View(await _context.Posts.Where(p => p.PostType == PostTypes.LOST).ToListAsync());
         }
-
+        */
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
