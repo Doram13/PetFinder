@@ -16,9 +16,12 @@
               integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
 <body>
+    
     <header>
+        <div class="img-fluid"> <img src="~/img/banner.jpg" class="img"></div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PetFinder</a>
@@ -31,6 +34,15 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="LostPets">List of Lost Pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="SeenPets">List Of Seen Pets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="CreatePost">I've seen or lost a pet</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -50,6 +62,7 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2019 - PetFinder - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a>DONATE!</a>
         </div>
     </footer>
 
