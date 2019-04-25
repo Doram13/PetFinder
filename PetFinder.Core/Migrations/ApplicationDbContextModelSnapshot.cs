@@ -221,6 +221,8 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<int?>("PostedPetId");
 
+                    b.Property<string>("Title");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
