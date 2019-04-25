@@ -11,13 +11,14 @@
         <tr>
             <td>
                 <div class="indexcontainer">
-                    <img src="~/img/SeenDog.png" class="indeximage">
+                    <img src="~/img/SeenDog.png" class="indeximage" asp-area="" asp-controller="Posts" asp-action="CreatePost">
                     <div class="overlay"><h2>I've seen a lost pet</h2></div>
                 </div>
             </td>
             <td><div class="indexcontainer">
-    <img src="~/img/Lost-pet.jpg" class="indeximage">
-    <div class="overlay">I've lost my pet</div>
+    <img src="~/img/Lost-pet.jpg" class="indeximage" asp-area="" asp-controller="Posts" asp-action="SeenPets">
+    <div class="overlay"><h2>I've lost my pet
+</></h2></div>
 </div></td>
         </tr>
 
