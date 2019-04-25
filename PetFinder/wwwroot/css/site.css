@@ -10,7 +10,12 @@ for details on configuring this project to bundle and minify static web assets. 
 .indexcontainer {
     position: relative;
     resize: both;
-    width: auto;
+    width: 100%;
+    height: auto;
+}
+
+.img {
+    width: 100%;
     height: auto;
 }
 
