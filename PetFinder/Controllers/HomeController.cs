@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PetFinder.Core.Models;
-using PetFinder.Data;
+using PetFinder.Core;
 using PetFinder.Models;
 
 namespace PetFinder.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPost _postService;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(IPost postservice)
         {
-            _context = context;
+            _postService = postservice;
         }
-
-
 
         public IActionResult Index()
         {
@@ -47,5 +39,11 @@ namespace PetFinder.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Search()
+        {
+            return View();
+        }
+
     }
 }
