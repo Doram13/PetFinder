@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PetFinder.Core.Models;
 using PetFinder.Data;
 using PetFinder.Models;
 
@@ -19,7 +13,6 @@ namespace PetFinder.Controllers
         {
             _context = context;
         }
-
 
 
         public IActionResult Index()
