@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PetFinder.Core;
 using PetFinder.Models;
@@ -40,9 +41,9 @@ namespace PetFinder.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Search()
+        public async Task<IActionResult> Search(string searchString)
         {
-            return View();
+            return View(await _postService.GetAllPostWithSearchString(searchString));
         }
 
     }
