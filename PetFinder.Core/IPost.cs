@@ -12,5 +12,6 @@ namespace PetFinder.Core
         Task<IEnumerable<Post>> GetAllSeenPetPosts();
         Task<IEnumerable<Post>> GetAllLostPetPosts();
         Task SavePostAsync(Post post);
+        Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString);
     }
 }
