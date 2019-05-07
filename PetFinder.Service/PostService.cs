@@ -61,6 +61,7 @@ namespace PetFinder.Service
             return await _context.Posts
                 .Where(post => post.Description.Contains(searchString) || post.Title.Contains(searchString))
                 .Where(post => post.IsActive == true)
+                .Include(post => post.PostedPet)
                 .ToListAsync();
         }
     }
