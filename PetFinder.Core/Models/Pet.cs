@@ -11,13 +11,14 @@ namespace PetFinder.Core.Models
         [Required]
         public AnimalTypes AnimalType { get; set; }
         public string PicturePath { get; set; }
-        public Dictionary<Tag, bool> Tags = new Dictionary<Tag, bool>();
+        public Dictionary<Tag, bool> Tags;
         public virtual SeenDetail SeenDetail { get; set; }
         //[NotMapped]
         //public IEnumerable<Tag> Tags { get; set; }
 
         public Pet(string name="")
         {
+            Tags = new Dictionary<Tag, bool>();
             SeenDetail = new SeenDetail();
             Name = name;
 
