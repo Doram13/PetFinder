@@ -91,8 +91,8 @@ namespace PetFinder.Controllers
 
         public IActionResult CreatePost()
         {
-            var postWithTag = new PostWithTag();
-            return View(postWithTag);
+            var post = new Post();
+            return View(post);
         }
 
         [HttpPost]
@@ -100,7 +100,14 @@ namespace PetFinder.Controllers
         public async Task<IActionResult> SaveNewPost(Post post)
         {
             await _postService.SavePostAsync(post);
-            return RedirectToAction(nameof(SeenPets));
+            if (post.PostType == PostTypes.LOST)
+            {
+                return RedirectToAction(nameof(LostPets));
+            }
+            else
+            {
+                return RedirectToAction(nameof(SeenPets));
+            }
         }
     }
 }
