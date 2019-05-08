@@ -91,10 +91,12 @@ namespace PetFinder.Controllers
 
         public IActionResult CreatePost()
         {
-            return View();
+            var postWithTag = new PostWithTag();
+            return View(postWithTag);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveNewPost(Post post)
         {
             await _postService.SavePostAsync(post);
