@@ -58,11 +58,16 @@ namespace PetFinder.Service
 
         public async Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString)
         {
-            return await _context.Posts
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return await _context.Posts
                 .Where(post => post.Description.Contains(searchString) || post.Title.Contains(searchString))
                 .Where(post => post.IsActive == true)
                 .Include(post => post.PostedPet)
                 .ToListAsync();
+            }
+
+            throw new ArgumentException();
         }
     }
 }
