@@ -55,5 +55,44 @@ namespace PetFinder.Service
         {
             throw new NotImplementedException();
         }
+
+        public async Task SetInactiveAsync(int id)
+        {
+            var PostToSetInactive = await _context.Posts.FirstOrDefaultAsync(post => post.Id == id);
+            PostToSetInactive.IsActive = false;
+            _context.Posts.Update(PostToSetInactive);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+        }
+
+        public async Task EditPostContentAsync(int id, string newContent)
+        {
+            var PostToSetInactive = await _context.Posts.FirstOrDefaultAsync(post => post.Id == id);
+            PostToSetInactive.IsActive = false;
+
+            try
+            {
+                _context.Update(post);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(post.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
     }
 }
