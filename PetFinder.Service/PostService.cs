@@ -17,7 +17,7 @@ namespace PetFinder.Service
         {
             _context = context;
         }
-        public async Task SavePostAsync(Post post)
+        public virtual async Task SavePostAsync(Post post)
         {
             post.IsActive = true;
             _context.Posts.Add(post);
