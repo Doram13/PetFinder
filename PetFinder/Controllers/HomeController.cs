@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PetFinder.Core;
 using PetFinder.Data;
 using PetFinder.Models;
 
@@ -7,13 +11,12 @@ namespace PetFinder.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPost _postService;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(IPost postservice)
         {
-            _context = context;
+            _postService = postservice;
         }
-
 
         public IActionResult Index()
         {
@@ -40,5 +43,11 @@ namespace PetFinder.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public async Task<IActionResult> Search(string searchString)
+        {
+            return View(await _postService.GetAllPostWithSearchString(searchString));
+        }
+
     }
 }

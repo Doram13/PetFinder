@@ -27,7 +27,7 @@ namespace PetFinder.Service
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to save to database: {ex.Message}" );
+                Console.WriteLine($"Failed to save to database: {ex.Message}");
             }
         }
 
@@ -54,6 +54,20 @@ namespace PetFinder.Service
         public IEnumerable<Post> GetAllPosts()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return await _context.Posts
+                .Where(post => post.Description.Contains(searchString) || post.Title.Contains(searchString))
+                .Where(post => post.IsActive == true)
+                .Include(post => post.PostedPet)
+                .ToListAsync();
+            }
+
+            throw new ArgumentException();
         }
     }
 }
