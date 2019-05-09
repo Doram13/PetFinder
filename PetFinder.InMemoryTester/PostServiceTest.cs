@@ -35,8 +35,8 @@ namespace PetFinder.InMemoryTester
                 var service = new PostService(context);
                 await service.SavePostAsync(new Post() { Title = "First Test Post", Description = "First Test Post decription", IsActive = true, PostDate = DateTime.Now });
                 await service.SavePostAsync(new Post() { Title = "Second Test Post", Description = "Second Test Post decription", IsActive = true, PostDate = DateTime.Now });
-                await service.SavePostAsync(new Post() { Title = "Third Test Post", Description = "Third Test Post decription", IsActive = true, PostDate = DateTime.Now });
-                await service.SavePostAsync(new Post() { Title = "Fourth Test Post", Description = "Fourth Test Post decription", IsActive = true, PostDate = DateTime.Now });
+                await service.SavePostAsync(new Post() { Title = "Third Test Post", Description = "Third Test Post decription", IsActive = false, PostDate = DateTime.Now });
+                await service.SavePostAsync(new Post() { Title = "Fourth Test Post", Description = "Fourth Test Post decription", IsActive = false, PostDate = DateTime.Now });
             }
         }
 
@@ -49,12 +49,14 @@ namespace PetFinder.InMemoryTester
         [Test]
         public async Task SavePostAsync_Shoul_Insert_One_Post_Into_Db()
         {
+            // Act
             using (var context = new ApplicationDbContext(Options))
             {
                 var service = new PostService(context);
                 await service.SavePostAsync(new Post() { Title = "SavePostAsync Test post", Description = "Decription", IsActive = true, PostDate = DateTime.Now });
             }
 
+            // Assert
             using (var context = new ApplicationDbContext(Options))
             {
                 Assert.That(context.Posts.Count(), Is.EqualTo(5));
