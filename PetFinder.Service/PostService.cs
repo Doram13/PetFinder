@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PetFinder.Service
 {
@@ -109,6 +110,32 @@ namespace PetFinder.Service
             }
 
             throw new ArgumentException();
+        }
+
+        public async Task<bool> UpdatePostEntryAsync(Post post)
+        {
+            try
+            {
+                _context.Update(post);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(post.Id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        private bool PostExists(int id)
+        {
+            return _context.Posts.Any(e => e.Id == id);
         }
     }
 }

@@ -48,19 +48,18 @@ namespace PetFinder.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var post = await _postService.GetPostById(id);
+            var post = await _postService.GetPostById((int)id);
             if (post == null)
             {
                 return NotFound();
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", post.UserId);
             return View(post);
         }
 
@@ -72,37 +71,29 @@ namespace PetFinder.Controllers
             {
                 return NotFound();
             }
-            Post postToChange = await _postService.GetPostById(Int32.Parse(id));
-            
-            post.Id = postToChange.Id + 100;
-            post.IsActive = postToChange.IsActive;
-            post.PostType = postToChange.PostType;
-            post.PostedPet = postToChange.PostedPet;
-            post.User = postToChange.User;
+            //Post postToChange = await _postService.GetPostById(Int32.Parse(id));
+
+            //post.Id = postToChange.Id + 100;
+            //post.IsActive = postToChange.IsActive;
+            //post.PostType = postToChange.PostType;
+            //post.PostedPet = postToChange.PostedPet;
+            //post.User = postToChange.User;
 
 
             if (ModelState.IsValid)
             {
-                try
+                if (await _postService.UpdatePostEntryAsync(post))
                 {
-                    await _postService.EditPostContentAsync(post, postToChange);
-                    if (post.PostType.Equals("SEEN"))
+                    if (post.PostType == PostTypes.LOST)
+                    {
+                        return RedirectToAction(nameof(LostPets));
+                    }
+                    else
                     {
                         return RedirectToAction(nameof(SeenPets));
                     }
-                    else return RedirectToAction(nameof(LostPets));
                 }
-               catch (DbUpdateConcurrencyException ex)
-                {
-                   Console.WriteLine($"Failed to save to database: {ex.Message}");
-                }
-               catch (Exception ex)
-                {
-                   Console.WriteLine($"Failed to save to database: {ex.Message}");
-                }
-                //return RedirectToAction(nameof(Index));
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", post.UserId);
             return View(post);
         }
 

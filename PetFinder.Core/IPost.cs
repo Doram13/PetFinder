@@ -15,5 +15,6 @@ namespace PetFinder.Core
         Task SetInactiveAsync(int id);
         Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString);
         Task EditPostContentAsync(Post post, Post postToChange);
+        Task<bool> UpdatePostEntryAsync(Post post);
     }
 }
