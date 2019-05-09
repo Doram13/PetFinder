@@ -1,18 +1,19 @@
 ﻿@model IEnumerable<PetFinder.Core.Models.Post>
 
 @{
-    ViewData["Title"] = "Lost pets";
+    ViewData["Title"] = "Search";
 }
 
-<h1>Lost pets</h1>
+<div class="container">
+    Here comes the list of TAGs!
+</div>
 
-<p>
-    <a asp-action="CreatePost" class="btn btn-primary">Create New</a>
- 
-</p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PostType)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -28,6 +29,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostType)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

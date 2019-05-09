@@ -26,28 +26,37 @@
         <div class="img-fluid"> <img src="~/img/banner.jpg" class="img"></div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PetFinder</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" id="navbarContent">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="LostPets">List of Lost Pets</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="LostPets">Lost Pets</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="SeenPets">List Of Seen Pets</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="SeenPets">Seen Pets</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="CreatePost">I've seen or lost a pet</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Posts" asp-action="CreatePost">New post</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <form class="form-inline my-1 my-lg-0" asp-controller="Home" asp-action="Search">
+                                <input name="searchString"
+                                       class="form-control mx-sm-2 mx-lg-1 mx-xl-0"
+                                       type="search"
+                                       placeholder="Search..."
+                                       aria-label="Search">
+                                <button class="btn btn-outline-light my-1 my-sm-0"
+                                        type="submit">
+                                    Search
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </div>
