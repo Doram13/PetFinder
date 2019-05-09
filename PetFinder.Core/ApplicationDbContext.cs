@@ -11,7 +11,7 @@ namespace PetFinder.Data
     {
         public DbSet<IdentityUser> IdentityUsers { get; set; }
         public DbSet<Pet> Pets { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
         public DbSet<SeenDetail> SeenDetails { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -31,4 +31,3 @@ namespace PetFinder.Data
         }
     }
 }
-    

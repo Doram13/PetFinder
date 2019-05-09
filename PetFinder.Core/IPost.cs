@@ -7,10 +7,10 @@ namespace PetFinder.Core
     public interface IPost
     {
         Task<Post> GetPostById(int id);
-        IEnumerable<Post> GetAllPosts();
-        IEnumerable<Post> GetAllActivePosts();
-        Task<IEnumerable<Post>> GetAllSeenPetPosts();
-        Task<IEnumerable<Post>> GetAllLostPetPosts();
+        List<Post> GetAllPosts();
+        List<Post> GetAllActivePosts();
+        Task<List<Post>> GetAllSeenPetPosts();
+        Task<List<Post>> GetAllLostPetPosts();
         Task SavePostAsync(Post post);
         Task SetInactiveAsync(int id);
         Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString);
