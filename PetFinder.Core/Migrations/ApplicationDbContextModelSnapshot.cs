@@ -198,6 +198,9 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<int?>("SeenDetailId");
 
+                    b.Property<string>("Tags")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
                     b.HasIndex("SeenDetailId");

@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PetFinder.Service
 {
@@ -34,7 +33,9 @@ namespace PetFinder.Service
 
         public List<Post> GetAllActivePosts()
         {
-            return _context.Posts.ToList();
+            return _context.Posts
+                .Where(p => p.IsActive == true)
+                .ToList();
         }
 
         public async Task<Post> GetPostById(int id)

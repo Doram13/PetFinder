@@ -11,7 +11,8 @@ namespace PetFinder.Core.Models
         [Required]
         public AnimalTypes AnimalType { get; set; }
         public string PicturePath { get; set; }
-        public Dictionary<Tag, bool> Tags;
+        [Required]
+        public Dictionary<Tag, bool> Tags { get; set; }
         public virtual SeenDetail SeenDetail { get; set; }
 
         public Pet()
