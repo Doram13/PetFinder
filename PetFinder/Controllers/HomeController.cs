@@ -16,6 +16,7 @@ namespace PetFinder.Controllers
         public HomeController(IPost postservice)
         {
             _postService = postservice;
+
         }
 
         public IActionResult Index()

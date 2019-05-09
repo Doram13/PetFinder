@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PetFinder.Service
 {
@@ -17,6 +18,9 @@ namespace PetFinder.Service
         {
             _context = context;
         }
+        
+
+
         public async Task SavePostAsync(Post post)
         {
             post.IsActive = true;
@@ -55,6 +59,45 @@ namespace PetFinder.Service
         {
             throw new NotImplementedException();
         }
+
+        public async Task SetInactiveAsync(int id)
+        {
+            Post PostToSetInactive = await _context.Posts.FirstOrDefaultAsync(post => post.Id == id);
+            PostToSetInactive.IsActive = false;
+            _context.Posts.Update(PostToSetInactive);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+        }
+
+        public async Task EditPostContentAsync(Post post, Post postToChange)
+        {
+
+            try
+            {
+                _context.Posts.Remove(postToChange);
+                post.Id -= 100;
+                _context.Posts.Add(post);
+                
+                //_context.Entry(post).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+        }
+
+
 
         public async Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString)
         {
