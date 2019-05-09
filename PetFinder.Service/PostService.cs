@@ -18,10 +18,7 @@ namespace PetFinder.Service
         {
             _context = context;
         }
-        
-
-
-        public async Task SavePostAsync(Post post)
+        public virtual async Task SavePostAsync(Post post)
         {
             post.IsActive = true;
             _context.Posts.Add(post);
@@ -35,9 +32,9 @@ namespace PetFinder.Service
             }
         }
 
-        public IEnumerable<Post> GetAllActivePosts()
+        public List<Post> GetAllActivePosts()
         {
-            return _context.Posts;
+            return _context.Posts.ToList();
         }
 
         public async Task<Post> GetPostById(int id)
@@ -45,19 +42,19 @@ namespace PetFinder.Service
             return await _context.Posts.FirstOrDefaultAsync(post => post.Id == id);
         }
 
-        public async Task<IEnumerable<Post>> GetAllSeenPetPosts()
+        public async Task<List<Post>> GetAllSeenPetPosts()
         {
             return await _context.Posts.Where(p => p.PostType == PostTypes.SEEN).ToListAsync();
         }
 
-        public async Task<IEnumerable<Post>> GetAllLostPetPosts()
+        public async Task<List<Post>> GetAllLostPetPosts()
         {
             return await _context.Posts.Where(p => p.PostType == PostTypes.LOST).ToListAsync();
         }
 
-        public IEnumerable<Post> GetAllPosts()
+        public List<Post> GetAllPosts()
         {
-            throw new NotImplementedException();
+            return _context.Posts.ToList();
         }
 
         public async Task SetInactiveAsync(int id)
