@@ -13,14 +13,11 @@ namespace PetFinder.Core.Models
         public string PicturePath { get; set; }
         public Dictionary<Tag, bool> Tags;
         public virtual SeenDetail SeenDetail { get; set; }
-        //[NotMapped]
-        //public IEnumerable<Tag> Tags { get; set; }
 
-        public Pet(string name="")
+        public Pet()
         {
             Tags = new Dictionary<Tag, bool>();
             SeenDetail = new SeenDetail();
-            Name = name;
 
             foreach (Tag tag in (Tag[])Enum.GetValues(typeof(Tag)))
             {
