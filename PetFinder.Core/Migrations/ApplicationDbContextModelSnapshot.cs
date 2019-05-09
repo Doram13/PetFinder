@@ -211,7 +211,8 @@ namespace PetFinder.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<bool>("IsActive");
 
@@ -219,9 +220,10 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<int>("PostType");
 
-                    b.Property<int?>("PostedPetId");
+                    b.Property<int>("PostedPetId");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<string>("UserId");
 
@@ -305,7 +307,8 @@ namespace PetFinder.Core.Migrations
                 {
                     b.HasOne("PetFinder.Core.Models.Pet", "PostedPet")
                         .WithMany()
-                        .HasForeignKey("PostedPetId");
+                        .HasForeignKey("PostedPetId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
