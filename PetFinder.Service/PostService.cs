@@ -18,6 +18,9 @@ namespace PetFinder.Service
         {
             _context = context;
         }
+        
+
+
         public async Task SavePostAsync(Post post)
         {
             post.IsActive = true;
