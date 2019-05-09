@@ -91,14 +91,23 @@ namespace PetFinder.Controllers
 
         public IActionResult CreatePost()
         {
-            return View();
+            var post = new Post();
+            return View(post);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveNewPost(Post post)
         {
             await _postService.SavePostAsync(post);
-            return RedirectToAction(nameof(SeenPets));
+            if (post.PostType == PostTypes.LOST)
+            {
+                return RedirectToAction(nameof(LostPets));
+            }
+            else
+            {
+                return RedirectToAction(nameof(SeenPets));
+            }
         }
     }
 }

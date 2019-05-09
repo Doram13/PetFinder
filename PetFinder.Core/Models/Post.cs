@@ -9,11 +9,27 @@ namespace PetFinder.Core.Models
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
-        public PostTypes PostType { get; set; }
-        public DateTime PostDate { get; set; }
-        public bool IsActive { get; set; }
-        public virtual IdentityUser User { get; set; }
-        public virtual Pet PostedPet { get; set; }
+        [Required]
         public string Description { get; set; }
+        [Required]
+        public PostTypes PostType { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime PostDate { get; set; }
+
+        public bool IsActive { get; set; }
+
+        [Required]
+        public Pet PostedPet { get; set; }
+
+        public virtual IdentityUser User { get; set; }
+
+        public Post()
+        {
+            PostDate = DateTime.Now;
+            IsActive = true;
+            PostedPet = new Pet();
+        }
+
     }
 }
