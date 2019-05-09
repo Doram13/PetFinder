@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace PetFinder.Service
 {
@@ -27,7 +28,7 @@ namespace PetFinder.Service
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to save to database: {ex.Message}" );
+                Console.WriteLine($"Failed to save to database: {ex.Message}");
             }
         }
 
@@ -54,6 +55,59 @@ namespace PetFinder.Service
         public List<Post> GetAllPosts()
         {
             return _context.Posts.ToList();
+        }
+
+        public async Task SetInactiveAsync(int id)
+        {
+            Post PostToSetInactive = await _context.Posts.FirstOrDefaultAsync(post => post.Id == id);
+            PostToSetInactive.IsActive = false;
+            _context.Posts.Update(PostToSetInactive);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+        }
+
+        public async Task EditPostContentAsync(Post post, Post postToChange)
+        {
+
+            try
+            {
+                _context.Posts.Remove(postToChange);
+                post.Id -= 100;
+                _context.Posts.Add(post);
+                
+                //_context.Entry(post).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+        }
+
+
+
+        public async Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString)
+        {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return await _context.Posts
+                .Where(post => post.Description.Contains(searchString) || post.Title.Contains(searchString))
+                .Where(post => post.IsActive == true)
+                .Include(post => post.PostedPet)
+                .ToListAsync();
+            }
+
+            throw new ArgumentException();
         }
     }
 }
