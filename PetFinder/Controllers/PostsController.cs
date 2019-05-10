@@ -66,7 +66,7 @@ namespace PetFinder.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id, IsActive, PostType, PostedPet, User, Title, PostDate, Description")] Post post)
+        public async Task<IActionResult> Edit(string id, [Bind("Id, IsActive, PostedPet, User, Title, PostDate, Description")] Post post)
         {
             if (Int32.Parse(id) != post.Id)
             {
@@ -76,7 +76,6 @@ namespace PetFinder.Controllers
             
             post.Id = postToChange.Id + 100;
             post.IsActive = postToChange.IsActive;
-            post.PostType = postToChange.PostType;
             post.PostedPet = postToChange.PostedPet;
             post.User = postToChange.User;
 
@@ -86,11 +85,8 @@ namespace PetFinder.Controllers
                 try
                 {
                     await _postService.EditPostContentAsync(post, postToChange);
-                    if (post.PostType.Equals("SEEN"))
-                    {
-                        return RedirectToAction(nameof(SeenPets));
-                    }
-                    else return RedirectToAction(nameof(LostPets));
+                    return RedirectToAction(nameof(SeenPets)); //MAybe not needed
+                    
                 }
                catch (DbUpdateConcurrencyException ex)
                 {
