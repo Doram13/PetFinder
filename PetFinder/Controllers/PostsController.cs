@@ -50,11 +50,6 @@ namespace PetFinder.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var post = await _postService.GetPostById(id);
             if (post == null)
             {

@@ -1,6 +1,5 @@
 ﻿namespace PetFinder.Core.Models
 {
-    
     public enum Tag
     {
         BLACK,

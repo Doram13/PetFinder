@@ -5,7 +5,6 @@ namespace PetFinder.Core.Models
 {
     public class SeenDetail
     {
-
         public int Id { get; set; }
         public string Location { get; set; }
         [Required]

@@ -47,7 +47,7 @@ namespace PetFinder.InMemoryTester
         }
 
         [Test]
-        public async Task SavePostAsync_Shoul_Insert_One_Post_Into_Db()
+        public async Task SavePostAsync_Should_Insert_One_Post_Into_Db()
         {
             // Act
             using (var context = new ApplicationDbContext(Options))
