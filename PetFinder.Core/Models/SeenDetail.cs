@@ -10,7 +10,9 @@ namespace PetFinder.Core.Models
         [Required]
         public DateTime SeenTime { get; set; }
 
-        public SeenDetail()
+        public SeenDetail() {}
+
+        public SeenDetail(bool newSeenDetail)
         {
             SeenTime = DateTime.Now;
         }
