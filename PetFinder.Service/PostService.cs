@@ -40,17 +40,24 @@ namespace PetFinder.Service
 
         public async Task<Post> GetPostById(int id)
         {
-            return await _context.Posts.FirstOrDefaultAsync(post => post.Id == id);
+            return await _context.Posts
+                .Include(pet => pet.PostedPet)
+                    .ThenInclude(sd => sd.SeenDetail)
+                .FirstOrDefaultAsync(post => post.Id == id);
         }
 
         public async Task<List<Post>> GetAllSeenPetPosts()
         {
-            return await _context.Posts.Where(p => p.PostType == PostTypes.SEEN).ToListAsync();
+            return await _context.Posts
+                .Where(p => p.PostType == PostTypes.SEEN)
+                .ToListAsync();
         }
 
         public async Task<List<Post>> GetAllLostPetPosts()
         {
-            return await _context.Posts.Where(p => p.PostType == PostTypes.LOST).ToListAsync();
+            return await _context.Posts
+                .Where(p => p.PostType == PostTypes.LOST)
+                .ToListAsync();
         }
 
         public List<Post> GetAllPosts()
@@ -82,7 +89,6 @@ namespace PetFinder.Service
                 post.Id -= 100;
                 _context.Posts.Add(post);
                 
-                //_context.Entry(post).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException ex)
