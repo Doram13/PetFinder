@@ -18,7 +18,6 @@ namespace PetFinder.Controllers
 
         }
 
-
         public async Task<IActionResult> SeenPets()
         {
             return View(await _postService.GetAllSeenPetPosts());
@@ -98,7 +97,7 @@ namespace PetFinder.Controllers
 
         public IActionResult CreatePost()
         {
-            var post = new Post();
+            var post = new Post(true);
             return View(post);
         }
 

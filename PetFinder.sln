@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFinder.Core", "PetFinder
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFinder.Service", "PetFinder.Service\PetFinder.Service.csproj", "{641651B6-7948-4AD2-A8DC-27499788EAB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Petfinder.Tester", "Petfinder.Tester\Petfinder.Tester.csproj", "{7DD94910-1F2C-4D0E-BB22-E6978162A585}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetFinder.InMemoryTester", "PetFinder.InMemoryTester\PetFinder.InMemoryTester.csproj", "{F7B132E0-C593-4ADA-9330-97AAAC575123}"
 EndProject
 Global
