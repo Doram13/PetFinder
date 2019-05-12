@@ -18,7 +18,6 @@ namespace PetFinder.Controllers
 
         }
 
-
         public async Task<IActionResult> SeenPets()
         {
             return View(await _postService.GetAllSeenPetPosts());
@@ -51,11 +50,12 @@ namespace PetFinder.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var post = await _postService.GetPostById(id);
+
             if (post == null)
             {
                 return NotFound();
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", post.UserId);
+
             return View(post);
         }
 
@@ -91,50 +91,10 @@ namespace PetFinder.Controllers
                 {
                    Console.WriteLine($"Failed to save to database: {ex.Message}");
                 }
-                //return RedirectToAction(nameof(Index));
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", post.UserId);
+
             return View(post);
         }
-
-        //POST: Posts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("PostDate,Description,Title")] Post post)
-        //{
-        //    if (id != post.Id)
-        //    {
-        //        return NotFound();
-        //    }
-        //
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            await _postService.EditPostContentAsync(id, post);
-        //            await _postService.SavePostAsync(post);
-        //        }
-        //        catch (DbUpdateConcurrencyException ex)
-        //        {
-        //            Console.WriteLine($"Failed to save to database: {ex.Message}");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine($"Failed to save to database: {ex.Message}");
-        //        }
-        //    }
-        //    return View(post);
-        //}
-
-
-
-
-        //private bool PostExists(int id)
-        //{
-        //  return DbContext.post.Any(e => e.Id == id);
-        //}
 
         public IActionResult Index()
         {
@@ -143,7 +103,7 @@ namespace PetFinder.Controllers
 
         public IActionResult CreatePost()
         {
-            var post = new Post();
+            var post = new Post(true);
             return View(post);
         }
 
