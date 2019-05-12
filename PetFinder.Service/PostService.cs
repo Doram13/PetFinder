@@ -32,11 +32,13 @@ namespace PetFinder.Service
             }
         }
 
-        public List<Post> GetAllActivePosts()
+        public async Task<List<Post>> GetAllActivePosts()
         {
-            return _context.Posts
+            return await _context.Posts
+                .Include(pet => pet.PostedPet)
+                    .ThenInclude(sd => sd.SeenDetail)
                 .Where(p => p.IsActive == true)
-                .ToList();
+                .ToListAsync();
         }
 
         public async Task<Post> GetPostById(int id)
@@ -44,26 +46,36 @@ namespace PetFinder.Service
             return await _context.Posts
                 .Include(pet => pet.PostedPet)
                     .ThenInclude(sd => sd.SeenDetail)
+                .Where(p => p.IsActive == true)
                 .FirstOrDefaultAsync(post => post.Id == id);
         }
 
         public async Task<List<Post>> GetAllSeenPetPosts()
         {
             return await _context.Posts
+                .Include(pet => pet.PostedPet)
+                    .ThenInclude(sd => sd.SeenDetail)
                 .Where(p => p.PostType == PostTypes.SEEN)
+                .Where(p => p.IsActive == true)
                 .ToListAsync();
         }
 
         public async Task<List<Post>> GetAllLostPetPosts()
         {
             return await _context.Posts
+                .Include(pet => pet.PostedPet)
+                    .ThenInclude(sd => sd.SeenDetail)
                 .Where(p => p.PostType == PostTypes.LOST)
+                .Where(p => p.IsActive == true)
                 .ToListAsync();
         }
 
-        public List<Post> GetAllPosts()
+        public async Task<List<Post>> GetAllPosts()
         {
-            return _context.Posts.ToList();
+            return await _context.Posts
+                .Include(pet => pet.PostedPet)
+                    .ThenInclude(sd => sd.SeenDetail)
+                .ToListAsync();
         }
 
         public async Task SetInactiveAsync(int id)
@@ -83,7 +95,6 @@ namespace PetFinder.Service
 
         public async Task EditPostContentAsync(Post post, Post postToChange)
         {
-
             try
             {
                 _context.Posts.Remove(postToChange);
@@ -102,8 +113,6 @@ namespace PetFinder.Service
             }
         }
 
-
-
         public async Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString)
         {
             if (!String.IsNullOrEmpty(searchString))
@@ -111,11 +120,12 @@ namespace PetFinder.Service
                 return await _context.Posts
                 .Where(post => post.Description.Contains(searchString) || post.Title.Contains(searchString))
                 .Where(post => post.IsActive == true)
-                .Include(post => post.PostedPet)
+                .Include(pet => pet.PostedPet)
+                    .ThenInclude(sd => sd.SeenDetail)
                 .ToListAsync();
             }
 
-            throw new ArgumentException();
+            return null;
         }
 
         public async Task<bool> UpdatePostEntryAsync(Post post)
