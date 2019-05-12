@@ -38,6 +38,7 @@ namespace PetFinder.Service
                 .Include(pet => pet.PostedPet)
                     .ThenInclude(sd => sd.SeenDetail)
                 .Where(p => p.IsActive == true)
+                .OrderByDescending(time => time.PostedPet.SeenDetail.SeenTime)
                 .ToListAsync();
         }
 
@@ -57,6 +58,7 @@ namespace PetFinder.Service
                     .ThenInclude(sd => sd.SeenDetail)
                 .Where(p => p.PostType == PostTypes.SEEN)
                 .Where(p => p.IsActive == true)
+                .OrderByDescending(time => time.PostedPet.SeenDetail.SeenTime)
                 .ToListAsync();
         }
 
@@ -67,6 +69,7 @@ namespace PetFinder.Service
                     .ThenInclude(sd => sd.SeenDetail)
                 .Where(p => p.PostType == PostTypes.LOST)
                 .Where(p => p.IsActive == true)
+                .OrderByDescending(time => time.PostedPet.SeenDetail.SeenTime)
                 .ToListAsync();
         }
 
@@ -75,6 +78,7 @@ namespace PetFinder.Service
             return await _context.Posts
                 .Include(pet => pet.PostedPet)
                     .ThenInclude(sd => sd.SeenDetail)
+                .OrderByDescending(time => time.PostedPet.SeenDetail.SeenTime)
                 .ToListAsync();
         }
 
@@ -122,6 +126,7 @@ namespace PetFinder.Service
                 .Where(post => post.IsActive == true)
                 .Include(pet => pet.PostedPet)
                     .ThenInclude(sd => sd.SeenDetail)
+                .OrderByDescending(time => time.PostedPet.SeenDetail.SeenTime)
                 .ToListAsync();
             }
 
