@@ -5,13 +5,14 @@ namespace PetFinder.Core.Models
 {
     public class SeenDetail
     {
-
         public int Id { get; set; }
         public string Location { get; set; }
         [Required]
         public DateTime SeenTime { get; set; }
 
-        public SeenDetail()
+        public SeenDetail() {}
+
+        public SeenDetail(bool newSeenDetail)
         {
             SeenTime = DateTime.Now;
         }
