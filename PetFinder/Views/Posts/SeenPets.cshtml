@@ -4,25 +4,10 @@
     ViewData["Title"] = "Seen Pets";
 }
 
-<h1>Seen pets</h1>
-
-<div class="row font-weight-bold px-1 py-3 my-2">
-    <div class="col col-sm-3 col-md-2">
-        @Html.DisplayNameFor(model => model.PostedPet.AnimalType)
-    </div>
-    <div class="col col-sm-6 col-md-7">
-        @Html.DisplayNameFor(model => model.Title)
-    </div>
-    <div class="col col-sm-3">
-        @Html.DisplayNameFor(model => model.PostedPet.SeenDetail.SeenTime)
-    </div>
-
-</div>
-
+<div class="h1 my-3">Seen pets</div>
 @foreach (var item in Model)
 {
-
-    <div class="row px-1 py-2 mt-3 bg-dark text-light text-capitalize">
+    <div class="row px-1 py-2 mt-3 bg-dark text-light text-capitalize h5">
         <div class="px-3 col col-sm-3 col-md-2">
             @Html.DisplayFor(model => item.PostedPet.AnimalType)
         </div>
@@ -33,7 +18,7 @@
             @Html.DisplayFor(model => item.PostedPet.SeenDetail.SeenTime)
         </div>
     </div>
-    <div class="row px-1 bg-light text-dark">
+    <div class="row px-1 text-dark h6">
         <div class="col col-sm-9">
             @Html.DisplayFor(model => item.Description)
         </div>
@@ -57,8 +42,3 @@
         </div>
     </div>
 }
-
-@*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-
