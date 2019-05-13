@@ -13,7 +13,7 @@ namespace PetFinder.Core
         Task<List<Post>> GetAllLostPetPosts();
         Task SavePostAsync(Post post);
         Task SetInactiveAsync(int id);
-        Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString);
+        Task<IEnumerable<Post>> GetAllPostWithSearchStringAsync(string searchString);
         Task EditPostContentAsync(Post post, Post postToChange);
         Task<bool> UpdatePostEntryAsync(Post post);
     }

@@ -117,7 +117,7 @@ namespace PetFinder.Service
             }
         }
 
-        public async Task<IEnumerable<Post>> GetAllPostWithSearchString(string searchString)
+        public async Task<IEnumerable<Post>> GetAllPostWithSearchStringAsync(string searchString)
         {
             if (!String.IsNullOrEmpty(searchString))
             {

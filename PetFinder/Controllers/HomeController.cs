@@ -47,7 +47,8 @@ namespace PetFinder.Controllers
 
         public async Task<IActionResult> Search(string searchString)
         {
-            return View(await _postService.GetAllPostWithSearchString(searchString));
+
+            return View(await _postService.GetAllPostWithSearchStringAsync(searchString));
         }
 
     }
