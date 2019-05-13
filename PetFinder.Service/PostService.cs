@@ -157,5 +157,19 @@ namespace PetFinder.Service
         {
             return _context.Posts.Any(e => e.Id == id);
         }
+        public async Task DeleteAsync(Post post)
+        {
+            try
+            {
+                _context.Posts.Remove(post);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to update in database: {ex.Message}");
+            }
+        }
+
+
     }
 }

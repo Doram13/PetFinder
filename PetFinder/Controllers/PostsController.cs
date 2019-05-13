@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetFinder.Core;
 using PetFinder.Core.Models;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace PetFinder.Controllers
 {
@@ -114,5 +115,26 @@ namespace PetFinder.Controllers
                 return RedirectToAction(nameof(SeenPets));
             }
         }
+
+        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Post postToDelete = await _postService.GetPostById(id);
+            try
+            {
+                await _postService.DeleteAsync(postToDelete);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Console.WriteLine($"Failed to save to database: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to save to database: {ex.Message}");
+            }
+            return RedirectToAction(nameof(SeenPets));
+        }
+
     }
 }
