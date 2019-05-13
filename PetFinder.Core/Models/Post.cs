@@ -24,13 +24,11 @@ namespace PetFinder.Core.Models
 
         public virtual IdentityUser User { get; set; }
 
-        public Post() {}
-
-        public Post(bool newPost)
+        public Post()
         {
             PostDate = DateTime.Now;
             IsActive = true;
-            PostedPet = new Pet(true);
+            PostedPet = new Pet();
         }
 
     }

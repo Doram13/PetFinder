@@ -15,12 +15,11 @@ namespace PetFinder.Core.Models
         public Dictionary<Tag, bool> Tags { get; set; }
         public virtual SeenDetail SeenDetail { get; set; }
 
-        public Pet() {}
 
-        public Pet(bool newPet)
+        public Pet()
         {
             Tags = new Dictionary<Tag, bool>();
-            SeenDetail = new SeenDetail(true);
+            SeenDetail = new SeenDetail();
 
             foreach (Tag tag in (Tag[])Enum.GetValues(typeof(Tag)))
             {

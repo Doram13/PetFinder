@@ -96,7 +96,7 @@ namespace PetFinder.Controllers
 
         public IActionResult CreatePost()
         {
-            var post = new Post(true);
+            var post = new Post();
             return View(post);
         }
 
