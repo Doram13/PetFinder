@@ -121,6 +121,7 @@ namespace PetFinder.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Post postToDelete = await _postService.GetPostById(id);
+            var PostType = postToDelete.PostType;
             try
             {
                 await _postService.DeleteAsync(postToDelete);
@@ -133,7 +134,12 @@ namespace PetFinder.Controllers
             {
                 Console.WriteLine($"Failed to save to database: {ex.Message}");
             }
+            if (PostType == PostTypes.LOST)
+            {
+                return RedirectToAction(nameof(LostPets));
+            }
             return RedirectToAction(nameof(SeenPets));
+            
         }
 
     }
