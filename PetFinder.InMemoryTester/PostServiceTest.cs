@@ -5,6 +5,7 @@ using PetFinder.Core.Models;
 using PetFinder.Data;
 using PetFinder.Service;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -61,6 +62,39 @@ namespace PetFinder.InMemoryTester
             {
                 Assert.That(context.Posts.Count(), Is.EqualTo(5));
             }
+        }
+
+        // This Post fails because SavePostAsync changes state to true!!!
+        [Test]
+        public async Task GetAllActivePosts_Should_Return_Just_Active_Posts()
+        {
+            List<Post> posts;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                posts = await service.GetAllActivePosts();
+            }
+
+            // Assert
+            Assert.That(posts.Count, Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task GetPostById_Should_Return_The_Right_Post()
+        {
+            Post posts;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                posts = await service.GetPostById(1);
+            }
+
+            // Assert
+            Assert.That(posts.Id, Is.EqualTo(1));
         }
     }
 }
