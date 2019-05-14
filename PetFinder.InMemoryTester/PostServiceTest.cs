@@ -150,5 +150,21 @@ namespace PetFinder.InMemoryTester
             Assert.That(posts[0].PostType, Is.EqualTo(PostTypes.LOST));
             Assert.That(posts[1].PostType, Is.EqualTo(PostTypes.LOST));
         }
+
+        [Test]
+        public async Task GetAllPosts_Should_Return_All_Existing_Posts()
+        {
+            List<Post> posts;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                posts = await service.GetAllPosts();
+            }
+
+            // Assert
+            Assert.That(posts.Count, Is.EqualTo(4));
+        }
     }
 }
