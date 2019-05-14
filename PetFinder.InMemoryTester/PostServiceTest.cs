@@ -166,5 +166,22 @@ namespace PetFinder.InMemoryTester
             // Assert
             Assert.That(posts.Count, Is.EqualTo(4));
         }
+
+        [Test]
+        public async Task SetInactiveAsyncShould_Change_Active_Status_To_False()
+        {
+            Post post;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                await service.SetInactiveAsync(1);
+                post = await service.GetPostById(1);
+            }
+
+            // Assert
+            Assert.That(post.IsActive, Is.EqualTo(false));
+        }
     }
 }
