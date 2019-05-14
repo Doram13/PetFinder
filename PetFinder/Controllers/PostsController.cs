@@ -64,7 +64,7 @@ namespace PetFinder.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id, IsActive, PostType, PostedPet, User, Title, PostDate, Description")] Post post)
+        public async Task<IActionResult> Edit(string id, [Bind("Id, IsActive, PostType, PostedPet, User, Title, PostDate, Description, PostedPet.AnimalType, PostedPet.SeenDetail")] Post post)
         {
             if (Int32.Parse(id) != post.Id)
             {
