@@ -1,11 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+    <div class="container">
 
-    <h1 class="display-4">Welcome to PetFinder</h1>
-    <table>
-        <tr>
-            <td>
+        <h1 class="display-4">Welcome to PetFinder</h1>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+
                 <div class="indexcontainer">
                     <a asp-area="" asp-controller="Posts" asp-action="CreatePost">
                         <img src="~/img/SeenDog.png" class="indeximage">
@@ -16,8 +17,8 @@
                         </div>
                     </a>
                 </div>
-            </td>
-            <td>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="indexcontainer">
                     <a asp-area="" asp-controller="Posts" asp-action="SeenPets">
                         <img src="~/img/Lost-pet.jpg" class="indeximage">
@@ -28,10 +29,8 @@
                         </div>
                     </a>
                 </div>
-            </td>
-        </tr>
-    </table>
-
-
+            </div>
+        </div>
+    </div>
 
 
