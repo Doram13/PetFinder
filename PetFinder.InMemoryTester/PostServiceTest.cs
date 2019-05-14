@@ -34,10 +34,26 @@ namespace PetFinder.InMemoryTester
             using (var context = new ApplicationDbContext(Options))
             {
                 var service = new PostService(context);
-                await service.SavePostAsync(new Post() { Title = "First Test Post", Description = "First Test Post decription", IsActive = true, PostDate = DateTime.Now });
-                await service.SavePostAsync(new Post() { Title = "Second Test Post", Description = "Second Test Post decription", IsActive = true, PostDate = DateTime.Now });
-                await service.SavePostAsync(new Post() { Title = "Third Test Post", Description = "Third Test Post decription", IsActive = false, PostDate = DateTime.Now });
-                await service.SavePostAsync(new Post() { Title = "Fourth Test Post", Description = "Fourth Test Post decription", IsActive = false, PostDate = DateTime.Now });
+                await service.SavePostAsync(new Post() { Title = "First Test Post",
+                    Description = "First Test Post decription",
+                    IsActive = true,
+                    PostDate = DateTime.Now,
+                    PostType = PostTypes.LOST });
+                await service.SavePostAsync(new Post() { Title = "Second Test Post",
+                    Description = "Second Test Post decription",
+                    IsActive = true,
+                    PostDate = DateTime.Now,
+                    PostType = PostTypes.SEEN });
+                await service.SavePostAsync(new Post() { Title = "Third Test Post",
+                    Description = "Third Test Post decription",
+                    IsActive = false,
+                    PostDate = DateTime.Now,
+                    PostType = PostTypes.LOST });
+                await service.SavePostAsync(new Post() { Title = "Fourth Test Post",
+                    Description = "Fourth Test Post decription",
+                    IsActive = false,
+                    PostDate = DateTime.Now,
+                    PostType = PostTypes.SEEN });
             }
         }
 
@@ -79,6 +95,8 @@ namespace PetFinder.InMemoryTester
 
             // Assert
             Assert.That(posts.Count, Is.EqualTo(2));
+            Assert.That(posts[0].IsActive, Is.EqualTo(true));
+            Assert.That(posts[1].IsActive, Is.EqualTo(true));
         }
 
         [Test]
@@ -95,6 +113,24 @@ namespace PetFinder.InMemoryTester
 
             // Assert
             Assert.That(posts.Id, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task GetAllSeenPetPosts_Should_Return_Just_SeenTypes()
+        {
+            List<Post> posts;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                posts = await service.GetAllSeenPetPosts();
+            }
+
+            // Assert
+            Assert.That(posts.Count, Is.EqualTo(2));
+            Assert.That(posts[0].PostType, Is.EqualTo(PostTypes.SEEN));
+            Assert.That(posts[1].PostType, Is.EqualTo(PostTypes.SEEN));
         }
     }
 }
