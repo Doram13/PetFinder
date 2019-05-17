@@ -1,0 +1,80 @@
+﻿@model PetFinder.Core.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <div class="row mb-1 h1 font-weight-bold">
+        <div class="col col-sm-12">
+            <div class="p-3">
+                @Html.DisplayFor(model => model.Title)
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2 h3">
+        <div class="col col-sm-6 col-lg-3">
+            <div class="p-1">
+                @Html.DisplayFor(model => model.PostedPet.AnimalType)
+            </div>
+        </div>
+        <div class="col col-sm-6 col-lg-2">
+            <div class="p-1">
+                @Html.DisplayFor(model => model.PostType)
+            </div>
+        </div>
+        <div class="col col-sm-12 col-lg-3">
+            <div class="p-1">
+                @Html.DisplayFor(model => model.PostedPet.SeenDetail.Location)
+            </div>
+        </div>
+        <div class="col col-sm-12 col-lg-4">
+            <div class="p-1">
+                @Html.DisplayFor(model => model.PostedPet.SeenDetail.SeenTime)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-sm-12 col-md-6 col-lg-4">
+            <div class="image">
+                Here Comes the Pet Image
+            </div>
+        </div>
+        <div class="col col-sm-12 col-md-6 col-lg-8">
+            <div class="row">
+                <div class="col">
+                    Name: @Html.DisplayFor(model => model.PostedPet.Name)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @foreach (var key in Model.PostedPet.Tags.Keys)
+                    {
+                        if (Model.PostedPet.Tags[key])
+                        {
+                            @Html.CheckBoxFor(m => Model.PostedPet.Tags[key],
+                                new
+                                {
+                                type = "checkbox",
+                                data_toggle = "toggle",
+                                data_on = key,
+                                data_off = key,
+                                data_size = "mini",
+                                data_onstyle = "success",
+                                data_offstyle = "secondary",
+                                @class = "form_control",
+                                data_status = "inactive"
+                                })
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>

@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFinder", "PetFinder\PetF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFinder.Core", "PetFinder.Core\PetFinder.Core.csproj", "{A5355203-C472-4CBD-808B-2DB56FB94959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetFinder.Service", "PetFinder.Service\PetFinder.Service.csproj", "{641651B6-7948-4AD2-A8DC-27499788EAB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFinder.Service", "PetFinder.Service\PetFinder.Service.csproj", "{641651B6-7948-4AD2-A8DC-27499788EAB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetFinder.InMemoryTester", "PetFinder.InMemoryTester\PetFinder.InMemoryTester.csproj", "{F7B132E0-C593-4ADA-9330-97AAAC575123}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,14 @@ Global
 		{641651B6-7948-4AD2-A8DC-27499788EAB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{641651B6-7948-4AD2-A8DC-27499788EAB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{641651B6-7948-4AD2-A8DC-27499788EAB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD94910-1F2C-4D0E-BB22-E6978162A585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD94910-1F2C-4D0E-BB22-E6978162A585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD94910-1F2C-4D0E-BB22-E6978162A585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD94910-1F2C-4D0E-BB22-E6978162A585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B132E0-C593-4ADA-9330-97AAAC575123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B132E0-C593-4ADA-9330-97AAAC575123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B132E0-C593-4ADA-9330-97AAAC575123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B132E0-C593-4ADA-9330-97AAAC575123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

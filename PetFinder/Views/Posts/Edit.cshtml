@@ -1,0 +1,99 @@
+﻿@model PetFinder.Core.Models.Post
+
+@{
+    ViewData["Title"] = "Edit Post";
+}
+@using PetFinder.Core.Models;
+
+<h1>Edit Post</h1>
+
+
+<hr/>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.PostedPet)
+@Html.HiddenFor(model => model.IsActive)
+@Html.HiddenFor(model => model.PostedPet)
+@Html.HiddenFor(model => model.PostedPet.Tags)
+@Html.HiddenFor(model => model.PostedPet.SeenDetail)
+@Html.HiddenFor(model => model.User)
+
+<form asp-action="Edit">
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostDate" class="control-label"></label>
+                <input asp-for="PostDate" class="form-control" />
+                <span asp-validation-for="PostDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group col-lg-6 col-sm-12 col-md-6">
+            <h4>Pet</h4>
+            <div class="form-group">
+                <label asp-for="PostedPet.AnimalType" class="control-label"></label>
+                <select asp-for="PostedPet.AnimalType" asp-items="Html.GetEnumSelectList<AnimalTypes>()" class="form-control"></select>
+                <span asp-validation-for="PostedPet.AnimalType" class="text-danger"></span>
+                <div class="form-group">
+                </div>
+                <div class="form-group">
+                    <label asp-for="PostedPet.SeenDetail.Location" class="control-label"></label>
+                    <input asp-for="PostedPet.SeenDetail.Location" class="form-control" />
+                    <span asp-validation-for="PostedPet.SeenDetail.Location" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="PostedPet.SeenDetail.SeenTime" class="control-label"></label>
+                        <input asp-for="PostedPet.SeenDetail.SeenTime" class="form-control" />
+                        <span asp-validation-for="PostedPet.SeenDetail.SeenTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @foreach (var key in Model.PostedPet.Tags.Keys)
+                        {
+                            <label class="checkbox control-label" asp-for="PostedPet.Tags[key]">
+                                @Html.CheckBoxFor(m => Model.PostedPet.Tags[key],
+                                new
+                                {
+                                type = "checkbox",
+                                data_toggle = "toggle",
+                                data_on = key,
+                                data_off = key,
+                                data_size = "mini",
+                                data_onstyle = "success",
+                                data_offstyle = "secondary",
+                                @class = "form_control"
+                                })
+                            </label>
+                            <span asp-validation-for="PostedPet.Tags.Keys" class="text-danger"></span>
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+    
+    <div>
+        <a asp-controller="Home" asp-action="Index">Back to List</a>
+    </div>
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

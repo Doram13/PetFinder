@@ -7,26 +7,21 @@
 
 <h1>CreatePost</h1>
 
-<h4>Post</h4>
+
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="SaveNewPost">
+<form asp-action="SaveNewPost">
+    <div class="row">
+        <div class="col col-sm-12 col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="PostType" class="control-label"></label>
                 <select asp-for="PostType" asp-items="Html.GetEnumSelectList<PostTypes>()" class="form-control"></select>
                 <span asp-validation-for="PostType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PostDate" class="control-label"></label>
-                <input asp-for="PostDate" class="form-control" />
-                <span asp-validation-for="PostDate" class="text-danger"></span>
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
@@ -34,14 +29,69 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="PostDate" class="control-label"></label>
+                <input asp-for="PostDate" class="form-control" />
+                <span asp-validation-for="PostDate" class="text-danger"></span>
             </div>
-        </form>
+        </div>
+        <div class="col col-sm-12 col-md-6">
+            <h4>Pet</h4>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PostedPet.AnimalType" class="control-label"></label>
+                <select asp-for="PostedPet.AnimalType" asp-items="Html.GetEnumSelectList<AnimalTypes>()" class="form-control"></select>
+                <span asp-validation-for="PostedPet.AnimalType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostedPet.Name" class="control-label"></label>
+                <input asp-for="PostedPet.Name" class="form-control" />
+                <span asp-validation-for="PostedPet.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostedPet.SeenDetail.Location" class="control-label"></label>
+                <input asp-for="PostedPet.SeenDetail.Location" class="form-control" />
+                <span asp-validation-for="PostedPet.SeenDetail.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostedPet.SeenDetail.SeenTime" class="control-label"></label>
+                <input asp-for="PostedPet.SeenDetail.SeenTime" class="form-control" />
+                <span asp-validation-for="PostedPet.SeenDetail.SeenTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @foreach (var key in Model.PostedPet.Tags.Keys)
+                {
+                    <label class="checkbox control-label" asp-for="PostedPet.Tags[key]">
+                        @Html.CheckBoxFor(m => Model.PostedPet.Tags[key],
+                        new
+                        {
+                        type = "checkbox",
+                        data_toggle = "toggle",
+                        data_on = key,
+                        data_off = key,
+                        data_size = "mini",
+                        data_onstyle = "success",
+                        data_offstyle = "secondary",
+                        @class = "form_control"
+                        })
+                    </label>
+                    <span asp-validation-for="PostedPet.Tags.Keys" class="text-danger"></span>
+                }
+            </div>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col col-12">
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+            </div>
+        </div>
+    </div>
+</form>
 
-<div>
-    <a asp-action="SeenPets">Back to List</a>
+<div class="row">
+    <div class="col float-right">
+        <a class="btn btn-outline-danger" asp-controller="Home" asp-action="Index">Back to Home</a>
+    </div>
 </div>
 
 @section Scripts {

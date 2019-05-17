@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using PetFinder.Core;
 using PetFinder.Core.Models;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace PetFinder.Controllers
 {
@@ -13,8 +15,8 @@ namespace PetFinder.Controllers
         public PostsController(IPost postservice)
         {
             _postService = postservice;
-        }
 
+        }
 
         public async Task<IActionResult> SeenPets()
         {
@@ -44,61 +46,101 @@ namespace PetFinder.Controllers
             return View(post);
         }
 
-        // POST: Posts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,PostType,PostDate,IsActive,Description,Title")] Post post)
-        //{
-        //    if (id != post.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(post);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!PostExists(post.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(SeenPets));
-        //    }
-        //    return View(post);
-        //}
+            var post = await _postService.GetPostById((int)id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return View(post);
+        }
 
-        //private bool PostExists(int id)
-        //{
-        //    return _context.Posts.Any(e => e.Id == id);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, [Bind("Id, IsActive, PostType, PostedPet, User, Title, PostDate, Description, PostedPet.AnimalType, PostedPet.SeenDetail")] Post post)
+        {
+            if (Int32.Parse(id) != post.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (await _postService.UpdatePostEntryAsync(post))
+                {
+                    if (post.PostType == PostTypes.LOST)
+                    {
+                        return RedirectToAction(nameof(LostPets));
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(SeenPets));
+                    }
+                }
+            }
+            return View(post);
+        }
 
         public IActionResult Index()
         {
-            return View();
+            // return to HomeController as PostController does not have an IndexPage
+            HomeController hc = new HomeController(_postService);
+            return hc.Index();
         }
 
         public IActionResult CreatePost()
         {
-            return View();
+            var post = new Post();
+            return View(post);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveNewPost(Post post)
         {
             await _postService.SavePostAsync(post);
-            return RedirectToAction(nameof(SeenPets));
+            if (post.PostType == PostTypes.LOST)
+            {
+                return RedirectToAction(nameof(LostPets));
+            }
+            else
+            {
+                return RedirectToAction(nameof(SeenPets));
+            }
         }
+
+        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Post postToDelete = await _postService.GetPostById(id);
+            var PostType = postToDelete.PostType;
+            try
+            {
+                await _postService.DeleteAsync(postToDelete);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Console.WriteLine($"Failed to save to database: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to save to database: {ex.Message}");
+            }
+            if (PostType == PostTypes.LOST)
+            {
+                return RedirectToAction(nameof(LostPets));
+            }
+            return RedirectToAction(nameof(SeenPets));
+            
+        }
+
     }
 }

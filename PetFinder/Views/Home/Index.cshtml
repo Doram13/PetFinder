@@ -1,24 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-    
-    <div class="text-center">
-        <h1 class="display-4">Welcome to PetFinder</h1>
-        <table>
-        <tr>
-            <td>
-                <div class="indexcontainer">
-                    <img src="~/img/SeenDog.png" class="indeximage">
-                    <div class="overlay"><h2> <a asp-area="" asp-controller="Posts" asp-action="CreatePost">I've seen a lost pet</a></h2></div>
+    <div class="container">
+        <div  class="text-center">
+            <h1 class="display-4">Welcome to PetFinder</h1>
+        </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+
+                    <div class="indexcontainer">
+                        <a asp-area="" asp-controller="Posts" asp-action="CreatePost">
+                            <img src="~/img/SeenDog.png" class="indeximage">
+                            <div class="overlay">
+                                <h2>
+                                    I have seen a lost pet
+                                </h2>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </td>
-            <td><div class="indexcontainer">
-    <img src="~/img/Lost-pet.jpg" class="indeximage">
-    <div class="overlay"><h2><a asp-area="" asp-controller="Posts" asp-action="SeenPets">I've lost my pet</a></h2></div>
-</div></td>
-        </tr>
-        </table>
-    </div>
-            
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="indexcontainer">
+                        <a asp-area="" asp-controller="Posts" asp-action="SeenPets">
+                            <img src="~/img/Lost-pet.jpg" class="indeximage">
+                            <div class="overlay">
+                                <h2>
+                                    I have lost my pet
+                                </h2>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 

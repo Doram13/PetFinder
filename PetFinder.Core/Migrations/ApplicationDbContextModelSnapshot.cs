@@ -15,7 +15,7 @@ namespace PetFinder.Core.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -198,6 +198,9 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<int?>("SeenDetailId");
 
+                    b.Property<string>("Tags")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
                     b.HasIndex("SeenDetailId");
@@ -211,7 +214,8 @@ namespace PetFinder.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<bool>("IsActive");
 
@@ -219,9 +223,10 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<int>("PostType");
 
-                    b.Property<int?>("PostedPetId");
+                    b.Property<int>("PostedPetId");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<string>("UserId");
 
@@ -305,7 +310,8 @@ namespace PetFinder.Core.Migrations
                 {
                     b.HasOne("PetFinder.Core.Models.Pet", "PostedPet")
                         .WithMany()
-                        .HasForeignKey("PostedPetId");
+                        .HasForeignKey("PostedPetId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()

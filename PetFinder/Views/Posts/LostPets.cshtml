@@ -1,47 +1,44 @@
 ﻿@model IEnumerable<PetFinder.Core.Models.Post>
 
 @{
-    ViewData["Title"] = "Lost pets";
+    ViewData["Title"] = "Lost Pets";
 }
 
-<h1>Lost pets</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PostDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div class="h1 my-3">Lost Pets</div>
+@foreach (var item in Model)
+{
+    <div class="row px-1 py-2 mt-3 bg-dark text-light text-capitalize h5">
+        <div class="px-3 col col-sm-3 col-md-2">
+            @Html.DisplayFor(model => item.PostedPet.AnimalType)
+        </div>
+        <div class="col col-sm-6 col-md-7">
+            @Html.DisplayFor(model => item.Title)
+        </div>
+        <div class="col col-sm-3">
+            @Html.DisplayFor(model => item.PostedPet.SeenDetail.SeenTime)
+        </div>
+    </div>
+    <div class="row px-1 text-dark h6">
+        <div class="col col-sm-9">
+            @Html.DisplayFor(model => item.Description)
+        </div>
+        <div class="col col-sm-3">
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </div>
+    </div>
+    <div class="row px-1 mb-4">
+        <div class="col col-sm-12">
+            @foreach (var key in item.PostedPet.Tags.Keys)
+            {
+                if (item.PostedPet.Tags[key])
+                {
+                    <div class="btn btn-success btn-sm disabled">
+                        @key
+                    </div>
+                }
+            }
+        </div>
+    </div>
 }
-    </tbody>
-</table>
