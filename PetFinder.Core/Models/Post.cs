@@ -24,6 +24,9 @@ namespace PetFinder.Core.Models
 
         public virtual IdentityUser User { get; set; }
 
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+
         public Post()
         {
             PostDate = DateTime.Now;

@@ -219,6 +219,10 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<bool>("IsActive");
 
+                    b.Property<string>("Latitude");
+
+                    b.Property<string>("Longitude");
+
                     b.Property<DateTime>("PostDate");
 
                     b.Property<int>("PostType");
