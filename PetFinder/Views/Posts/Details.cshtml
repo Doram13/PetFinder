@@ -4,7 +4,15 @@
     ViewData["Title"] = "Details";
 }
 
+@section Scripts{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script> 
+    <script type="text/javascript" src="@Url.Content("~/js/details.js")"></script>
+}
+
 <div>
+    <div>
+        <img id="map-image"/>
+    </div>
     <div class="row mb-1 h1 font-weight-bold">
         <div class="col col-sm-12">
             <div class="p-3">

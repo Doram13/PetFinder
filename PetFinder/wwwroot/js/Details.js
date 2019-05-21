@@ -1,0 +1,1 @@
+﻿$("#map-image").attr("src", "https://image.maps.api.here.com/mia/1.6/mapview?app_id=qhCsia5d6HnA5Frnca3B&app_code=ICFZtQFrarakCvUj2FdFfg");
