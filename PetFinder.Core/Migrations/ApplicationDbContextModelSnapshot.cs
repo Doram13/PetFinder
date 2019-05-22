@@ -251,6 +251,8 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<string>("Location");
 
+                    b.Property<byte[]>("Map");
+
                     b.Property<DateTime>("SeenTime");
 
                     b.HasKey("Id");
