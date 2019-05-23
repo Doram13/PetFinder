@@ -219,6 +219,10 @@ namespace PetFinder.Core.Migrations
 
                     b.Property<bool>("IsActive");
 
+                    b.Property<string>("Latitude");
+
+                    b.Property<string>("Longitude");
+
                     b.Property<DateTime>("PostDate");
 
                     b.Property<int>("PostType");
@@ -246,6 +250,8 @@ namespace PetFinder.Core.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Location");
+
+                    b.Property<byte[]>("Map");
 
                     b.Property<DateTime>("SeenTime");
 
