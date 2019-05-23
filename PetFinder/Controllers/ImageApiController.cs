@@ -5,7 +5,6 @@ using PetFinder.Service;
 
 namespace PetFinder.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class ImageApiController : Controller
     {        
@@ -13,6 +12,7 @@ namespace PetFinder.Controllers
 
 
             // GET: api/<controller>
+            [Route("Posts/Details/api/ImageApi")]
             [HttpGet]
             public async Task<IActionResult> GetAsync()
             {

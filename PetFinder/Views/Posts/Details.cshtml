@@ -10,9 +10,6 @@
 }
 
 <div>
-    <div>
-        <img id="map-image"/>
-    </div>
     <div class="row mb-1 h1 font-weight-bold">
         <div class="col col-sm-12">
             <div class="p-3">
@@ -45,15 +42,10 @@
     <div class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4">
             <div class="image">
-                Here Comes the Pet Image
+                <img id="map-image" />
             </div>
         </div>
         <div class="col col-sm-12 col-md-6 col-lg-8">
-            <div class="row">
-                <div class="col">
-                    Name: @Html.DisplayFor(model => model.PostedPet.Name)
-                </div>
-            </div>
             <div class="row">
                 <div class="col">
                     @foreach (var key in Model.PostedPet.Tags.Keys)
