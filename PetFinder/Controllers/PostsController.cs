@@ -64,7 +64,7 @@ namespace PetFinder.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id, IsActive, PostType, PostedPet, User, Title, PostDate, Description")] Post post)
+        public async Task<IActionResult> Edit(string id, [Bind("Id, IsActive, PostType, PostedPet, User, Title, PostDate, Description, PostedPet.AnimalType, PostedPet.SeenDetail")] Post post)
         {
             if (Int32.Parse(id) != post.Id)
             {
@@ -121,6 +121,7 @@ namespace PetFinder.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             Post postToDelete = await _postService.GetPostById(id);
+            var PostType = postToDelete.PostType;
             try
             {
                 await _postService.DeleteAsync(postToDelete);
@@ -133,7 +134,12 @@ namespace PetFinder.Controllers
             {
                 Console.WriteLine($"Failed to save to database: {ex.Message}");
             }
+            if (PostType == PostTypes.LOST)
+            {
+                return RedirectToAction(nameof(LostPets));
+            }
             return RedirectToAction(nameof(SeenPets));
+            
         }
 
     }
