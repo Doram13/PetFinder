@@ -9,6 +9,7 @@ namespace PetFinder.Core.Models
         public string Location { get; set; }
         [Required]
         public DateTime SeenTime { get; set; }
+        public byte[] Map { get; set; }
 
         public SeenDetail()
         {
