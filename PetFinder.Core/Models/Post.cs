@@ -6,6 +6,7 @@ namespace PetFinder.Core.Models
 {
     public class Post
     {
+        
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
@@ -17,7 +18,8 @@ namespace PetFinder.Core.Models
         [DataType(DataType.DateTime)]
         public DateTime PostDate { get; set; }
 
-        public bool IsActive { get; set; }
+
+        public bool IsActive { get; set; } = true;
 
         [Required]
         public Pet PostedPet { get; set; }
@@ -27,7 +29,7 @@ namespace PetFinder.Core.Models
         public Post()
         {
             PostDate = DateTime.Now;
-            IsActive = true;
+            //IsActive = true;
             PostedPet = new Pet();
         }
 

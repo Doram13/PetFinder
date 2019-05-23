@@ -97,6 +97,7 @@ namespace PetFinder.InMemoryTester
             Assert.That(posts.Count, Is.EqualTo(2));
             Assert.That(posts[0].IsActive, Is.EqualTo(true));
             Assert.That(posts[1].IsActive, Is.EqualTo(true));
+            //There should be only 1 Assert for each Test case
         }
 
         [Test]
