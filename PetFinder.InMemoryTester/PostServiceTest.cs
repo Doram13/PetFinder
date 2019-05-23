@@ -34,26 +34,100 @@ namespace PetFinder.InMemoryTester
             using (var context = new ApplicationDbContext(Options))
             {
                 var service = new PostService(context);
-                await service.SavePostAsync(new Post() { Title = "First Test Post",
+                var post1 = new Post()
+                {
+                    Title = "First Test Post",
                     Description = "First Test Post decription",
                     IsActive = true,
                     PostDate = DateTime.Now,
-                    PostType = PostTypes.LOST });
-                await service.SavePostAsync(new Post() { Title = "Second Test Post",
+                    PostType = PostTypes.LOST,
+                    PostedPet = new Pet()
+                    {
+                        AnimalType = AnimalTypes.DOG,
+                        Name = "Mici",
+                        PicturePath = @"\test\picture",
+                        Tags = new Dictionary<Tag, bool>(),
+                        SeenDetail = new SeenDetail()
+                        {
+                            Location = "Meter street",
+                            SeenTime = DateTime.Now
+                        }
+                    }
+                };
+                var post2 = new Post()
+                {
+                    Title = "Second Test Post",
                     Description = "Second Test Post decription",
-                    IsActive = true,
+                    IsActive = false,
                     PostDate = DateTime.Now,
-                    PostType = PostTypes.SEEN });
-                await service.SavePostAsync(new Post() { Title = "Third Test Post",
+                    PostType = PostTypes.SEEN,
+                    PostedPet = new Pet()
+                    {
+                        AnimalType = AnimalTypes.DOG,
+                        Name = "Pici",
+                        PicturePath = @"\test\picture",
+                        Tags = new Dictionary<Tag, bool>(),
+                        SeenDetail = new SeenDetail()
+                        {
+                            Location = "Lucky street",
+                            SeenTime = DateTime.Now
+                        }
+                    }
+                };
+                var post3 = new Post()
+                {
+                    Title = "Third Test Post",
                     Description = "Third Test Post decription",
                     IsActive = false,
                     PostDate = DateTime.Now,
-                    PostType = PostTypes.LOST });
-                await service.SavePostAsync(new Post() { Title = "Fourth Test Post",
+                    PostType = PostTypes.LOST,
+                    PostedPet = new Pet()
+                    {
+                        AnimalType = AnimalTypes.CAT,
+                        Name = "Mimi",
+                        PicturePath = @"\test\picture",
+                        Tags = new Dictionary<Tag, bool>(),
+                        SeenDetail = new SeenDetail()
+                        {
+                            Location = "Mountain street",
+                            SeenTime = DateTime.Now
+                        }
+                    }
+                };
+
+                var post4 =new Post()
+                {
+                    Title = "Fourth Test Post",
                     Description = "Fourth Test Post decription",
-                    IsActive = false,
+                    IsActive = true,
                     PostDate = DateTime.Now,
-                    PostType = PostTypes.SEEN });
+                    PostType = PostTypes.SEEN,
+                    PostedPet = new Pet()
+                    {
+                        AnimalType = AnimalTypes.CAT,
+                        Name = "Pipi",
+                        PicturePath = @"\test\picture",
+                        Tags = new Dictionary<Tag, bool>(),
+                        SeenDetail = new SeenDetail()
+                        {
+                            Location = "Deep street",
+                            SeenTime = DateTime.Now
+                        }
+                    }
+                };
+
+                foreach (Tag tag in (Tag[])Enum.GetValues(typeof(Tag)))
+                {
+                    post1.PostedPet.Tags.Add(tag, false);
+                    post2.PostedPet.Tags.Add(tag, false);
+                    post3.PostedPet.Tags.Add(tag, false);
+                    post4.PostedPet.Tags.Add(tag, false);
+                }
+
+                await service.SavePostAsync(post1);
+                await service.SavePostAsync(post2);
+                await service.SavePostAsync(post3);
+                await service.SavePostAsync(post4);
             }
         }
 
@@ -80,9 +154,8 @@ namespace PetFinder.InMemoryTester
             }
         }
 
-        // This Post fails because SavePostAsync changes state to true!!!
         [Test]
-        public async Task GetAllActivePosts_Should_Return_Just_Active_Posts()
+        public async Task GetAllActivePosts_Should_Return_Two_Long_List()
         {
             List<Post> posts;
 
@@ -95,11 +168,24 @@ namespace PetFinder.InMemoryTester
 
             // Assert
             Assert.That(posts.Count, Is.EqualTo(2));
-            Assert.That(posts[0].IsActive, Is.EqualTo(true));
-            Assert.That(posts[1].IsActive, Is.EqualTo(true));
-            //There should be only 1 Assert for each Test case
         }
 
+        [Test]
+        public async Task GetAllActivePosts_Should_Return_Element_Active()
+        {
+            List<Post> posts;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                posts = await service.GetAllActivePosts();
+            }
+
+            // Assert
+            Assert.That(posts[0].IsActive, Is.EqualTo(true));
+        }
+        
         [Test]
         public async Task GetPostById_Should_Return_The_Right_Post()
         {
@@ -117,7 +203,7 @@ namespace PetFinder.InMemoryTester
         }
 
         [Test]
-        public async Task GetAllSeenPetPosts_Should_Return_Just_SeenTypes()
+        public async Task GetAllSeenPetPosts_Should_Return_One_Long_List()
         {
             List<Post> posts;
 
@@ -129,13 +215,27 @@ namespace PetFinder.InMemoryTester
             }
 
             // Assert
-            Assert.That(posts.Count, Is.EqualTo(2));
-            Assert.That(posts[0].PostType, Is.EqualTo(PostTypes.SEEN));
-            Assert.That(posts[1].PostType, Is.EqualTo(PostTypes.SEEN));
+            Assert.That(posts.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public async Task GetAllLostPetPosts_Should_Return_Just_LostTypes()
+        public async Task GetAllSeenPetPosts_Should_Return_Seen_Type_Post()
+        {
+            List<Post> posts;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                posts = await service.GetAllSeenPetPosts();
+            }
+
+            // Assert
+            Assert.That(posts[0].PostType, Is.EqualTo(PostTypes.SEEN));
+        }
+
+        [Test]
+        public async Task GetAllLostPetPosts_Should_Return_One_Long_List()
         {
             List<Post> posts;
 
@@ -147,13 +247,27 @@ namespace PetFinder.InMemoryTester
             }
 
             // Assert
-            Assert.That(posts.Count, Is.EqualTo(2));
-            Assert.That(posts[0].PostType, Is.EqualTo(PostTypes.LOST));
-            Assert.That(posts[1].PostType, Is.EqualTo(PostTypes.LOST));
+            Assert.That(posts.Count, Is.EqualTo(1));
         }
 
         [Test]
-        public async Task GetAllPosts_Should_Return_All_Existing_Posts()
+        public async Task GetAllLostPetPosts_Should_Return_Lost_Type_Post()
+        {
+            List<Post> posts;
+
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                posts = await service.GetAllLostPetPosts();
+            }
+
+            // Assert
+            Assert.That(posts[0].PostType, Is.EqualTo(PostTypes.LOST));
+        }
+
+        [Test]
+        public async Task GetAllPosts_Should_Return_Four_Long_List()
         {
             List<Post> posts;
 
@@ -169,20 +283,56 @@ namespace PetFinder.InMemoryTester
         }
 
         [Test]
-        public async Task SetInactiveAsyncShould_Change_Active_Status_To_False()
+        public async Task GetAllPostWithSearchStringAsync_Should_Return_One_Long_List()
         {
-            Post post;
+            IEnumerable<Post> posts;
 
             // Act
             using (var context = new ApplicationDbContext(Options))
             {
                 var service = new PostService(context);
-                await service.SetInactiveAsync(1);
-                post = await service.GetPostById(1);
+                posts = await service.GetAllPostWithSearchStringAsync("First");
             }
 
             // Assert
-            Assert.That(post.IsActive, Is.EqualTo(false));
+            Assert.That(posts.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task DeleteAsync_Should_Remove_An_Item()
+        {
+            // Act
+            using (var context = new ApplicationDbContext(Options))
+            {
+                var service = new PostService(context);
+                await service.DeleteAsync(new Post()
+                {
+                    Id = 4,
+                    Title = "Fourth Test Post",
+                    Description = "Fourth Test Post decription",
+                    IsActive = true,
+                    PostDate = DateTime.Now,
+                    PostType = PostTypes.SEEN,
+                    PostedPet = new Pet()
+                    {
+                        AnimalType = AnimalTypes.CAT,
+                        Name = "Pipi",
+                        PicturePath = @"\test\picture",
+                        Tags = new Dictionary<Tag, bool>(),
+                        SeenDetail = new SeenDetail()
+                        {
+                            Location = "Deep street",
+                            SeenTime = DateTime.Now
+                        }
+                    }
+                });
+            }
+
+            // Assert
+            using (var context = new ApplicationDbContext(Options))
+            {
+                Assert.That(context.Posts.Count(), Is.EqualTo(3));
+            }
         }
     }
 }

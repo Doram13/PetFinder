@@ -81,41 +81,6 @@ namespace PetFinder.Service
                 .ToListAsync();
         }
 
-        public async Task SetInactiveAsync(int id)
-        {
-            Post PostToSetInactive = await _context.Posts.FirstOrDefaultAsync(post => post.Id == id);
-            PostToSetInactive.IsActive = false;
-            _context.Posts.Update(PostToSetInactive);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to update in database: {ex.Message}");
-            }
-        }
-
-        public async Task EditPostContentAsync(Post post, Post postToChange)
-        {
-            try
-            {
-                _context.Posts.Remove(postToChange);
-                post.Id -= 100;
-                _context.Posts.Add(post);
-                
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Console.WriteLine($"Failed to update in database: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to update in database: {ex.Message}");
-            }
-        }
-
         public async Task<IEnumerable<Post>> GetAllPostWithSearchStringAsync(string searchString)
         {
             if (!String.IsNullOrEmpty(searchString))
@@ -157,6 +122,7 @@ namespace PetFinder.Service
         {
             return _context.Posts.Any(e => e.Id == id);
         }
+
         public async Task DeleteAsync(Post post)
         {
             try
@@ -169,7 +135,5 @@ namespace PetFinder.Service
                 Console.WriteLine($"Failed to update in database: {ex.Message}");
             }
         }
-
-
     }
 }
